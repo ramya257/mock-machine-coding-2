@@ -31,7 +31,7 @@ public class SplitWiseApplication {
 			try {
 				nextLine = reader.readLine();
 			} catch (IOException e1) {
-				
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
         List<String> expenseTokens=tokenizeInput(nextLine);
@@ -131,7 +131,7 @@ public class SplitWiseApplication {
 		while (st != null && st.hasMoreElements()) {
 			tokens.add(st.nextToken());
 		}
-
+		// TODO Auto-generated method stub
 		return tokens;
 	}
 	private static void createUsers(){
