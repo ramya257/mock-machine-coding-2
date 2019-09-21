@@ -19,8 +19,10 @@ public class SplitWiseApplication {
         createUsers();
        
         SplitWiseService splitWiseService=new SplitWiseService();
-        System.out.println("Press 1 to Enter Expenses OR Press 2 To View Balance");
+        while(true){
+        System.out.println("Press 1 to Enter Expenses OR Press 2 To View Balance OR 3 to exit");
         int userInput=ScannerUtils.readInt();
+        
         switch(userInput){
         //For entering expenses
         case 1:System.out.println("Enter Expenses in the format:");
@@ -87,14 +89,23 @@ public class SplitWiseApplication {
             
         }
         
-        break;
         
+        break;
         //for displaying expenses
         case 2:System.out.println("Enter SHOW to Show All User Balances OR Enter SHOW <userId> to Show Any User Balance");
-        String[] showBalanceTokens=ScannerUtils.readString().split(" ");
-        String showBalanceInput=showBalanceTokens[0];
-        String userId=showBalanceTokens[1];
-        if(Expense.valueOf("SHOW").equals(showBalanceInput.toUpperCase()) && (null==userId || userId.isEmpty())){
+        String[] showBalanceTokens=new String[2];
+        showBalanceTokens=ScannerUtils.readString().split(" ");
+        String showBalanceInput=null;
+        String userId=null;
+        if(showBalanceTokens.length==1){
+        	showBalanceInput=showBalanceTokens[0];
+             
+        }else{
+        	 showBalanceInput=showBalanceTokens[0];
+             userId=showBalanceTokens[1];
+        }
+        	 
+        if("SHOW".equals(showBalanceInput.toUpperCase()) && (null==userId || userId.isEmpty())){
         	List<UserExpense> allUserExpenses=splitWiseService.showAllUserBalances();
         	if(null!=allUserExpenses && !allUserExpenses.isEmpty()){
         		for(UserExpense userExpenses:allUserExpenses){
@@ -104,7 +115,7 @@ public class SplitWiseApplication {
         		System.out.println("No Balances");
         	}
         	
-        }else if(Expense.valueOf("SHOW").equals(showBalanceInput.toUpperCase()) && null!=userId && !userId.isEmpty()){
+        }else if("SHOW".equals(showBalanceInput.toUpperCase()) && null!=userId && !userId.isEmpty()){
         	
         	List<UserExpense> userExpenses=splitWiseService.getAllExpensesByUserId(userId);
         	if(null!=userExpenses && !userExpenses.isEmpty()){
@@ -120,9 +131,14 @@ public class SplitWiseApplication {
         	System.out.println("Invalid Input");
         }
         break;
+        case 3:
+        	System.out.println("Closing Application");
+        	return;
         default:
         	System.out.println("Invalid Input");
         }
+        }
+        
     }
     private static List<String> tokenizeInput(String nextLine) {
     	List<String> tokens=new ArrayList<>();

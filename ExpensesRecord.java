@@ -4,6 +4,7 @@ import java.util.Map;
 
 public class ExpensesRecord {
 	private static Map<String,List<UserExpense>> userExpensesMap;
+
 	
 	
 	

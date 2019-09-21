@@ -4,7 +4,8 @@ public class UserExpense{
     private String userOwesTo;
     private String balanceAmount;
 
-    public UserExpense(String userOwesTo,String balanceAmount){
+    public UserExpense(String balanceOwner,String userOwesTo,String balanceAmount){
+    	this.balanceOwner=balanceOwner;
         this.userOwesTo=userOwesTo;
         this.balanceAmount=balanceAmount;
     }
